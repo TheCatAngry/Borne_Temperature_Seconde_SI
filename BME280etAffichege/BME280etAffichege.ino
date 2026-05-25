@@ -79,26 +79,29 @@ void printBME280Data
    float temp(NAN), hum(NAN), pres(NAN);
 
    BME280::TempUnit tempUnit(BME280::TempUnit_Celsius);
-   BME280::PresUnit presUnit(BME280::PresUnit_Pa);
 
-   bme.read(pres, temp, hum, tempUnit, presUnit);
+   bme.read(pres, temp, hum, tempUnit);
 
    client->print("Temp: ");
    client->print(temp);
    client->println("°"+ String(tempUnit == BME280::TempUnit_Celsius ? 'C' :'F'));
 
-   delay(1000);
+   delay(5000);
 }
 
 void testdrawstyles(void) {
-  float temp(NAN);
+  float temp(NAN), hum(NAN), pres(NAN);
+
+  BME280::TempUnit tempUnit(BME280::TempUnit_Celsius);
+
+  bme.read(pres, temp, hum, tempUnit);
 
   display.clearDisplay();
 
-  display.setTextSize(1);             // Normal 1:1 pixel scale
+  display.setTextSize(2);             // Normal 1:1 pixel scale
   display.setTextColor(SSD1306_WHITE);        // Draw white text
   display.setCursor(0,0);             // Start at top-left corner
-  display.print("Temp: ");
+  display.println("Temp: ");
   display.print(temp);
   display.print(" C");
 
